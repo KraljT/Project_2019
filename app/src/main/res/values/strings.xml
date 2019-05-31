@@ -1,3 +1,13 @@
 <resources>
-    <string name="app_name">Stuff_14</string>
+    <string name="app_name">S.t.u.f.f.</string>
+    <string name="common">Next common in:</string>
+    <string name="rare">Next rare in:</string>
+    <string name="epic">Next epic in:</string>
+    <string name="google_maps_api_key">AIzaSyBQA4IS2-BEWuZmmhD_4Jclk_VPOBxl0VA</string>
+    <string-array name="num">
+        <item>One</item>
+        <item>Two</item>
+        <item>Three</item>
+        <item>Four</item>
+    </string-array>
 </resources>
