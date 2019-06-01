@@ -26,18 +26,20 @@ public class Camera_Activity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 //intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile());
-                startActivityForResult(intent,1);
+                startActivityForResult(intent, 1);
 
             }
         });
 
 
     }
+
     @Override
-    protected void onActivityResult(int requestCode,int resultCode, Intent data)
-    {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         Bundle extras = data.getExtras();
-        super.onActivityResult(requestCode,resultCode,data);
-        Bitmap bitmap = (Bitmap)extras.get("data");
+        super.onActivityResult(requestCode, resultCode, data);
+        Bitmap bitmap = (Bitmap) extras.get("data");
         camera.setImageBitmap(bitmap);
     }
+}
+//ask for premission !!!
