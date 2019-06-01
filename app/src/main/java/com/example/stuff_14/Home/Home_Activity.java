@@ -6,10 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.stuff_14.Login_Activity;
+import com.example.stuff_14.MainActivity;
+import com.example.stuff_14.Register_Activity;
 import com.example.stuff_14.R;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class Home_Activity extends AppCompatActivity implements View.OnClickListener{
     private Button btn_logout;
@@ -24,7 +24,7 @@ public class Home_Activity extends AppCompatActivity implements View.OnClickList
         if(mAuth.getCurrentUser() == null)
         {
             finish();
-            startActivity(new Intent(this, Login_Activity.class));
+            startActivity(new Intent(this, MainActivity.class));
         }
         btn_logout.setOnClickListener(this);
     }
@@ -35,7 +35,7 @@ public class Home_Activity extends AppCompatActivity implements View.OnClickList
         {
             mAuth.signOut();
             finish();
-            startActivity(new Intent(this,Login_Activity.class));
+            startActivity(new Intent(this, MainActivity.class));
         }
     }
 }
