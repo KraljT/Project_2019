@@ -19,9 +19,9 @@
     <application
         android:name=".Home.ApplicationMy"
         android:allowBackup="true"
-        android:icon="@mipmap/icon8"
+        android:icon="@mipmap/ic_launcher_foreground"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/icona_144"
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
