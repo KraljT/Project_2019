@@ -29,14 +29,14 @@ public class Dialog_Username extends AppCompatDialogFragment {
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        listener.apply_Text("Welcome NoName");
+                        listener.apply_Text("NoName");
                     }
                 })
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String username = edittext_Username.getText().toString();
-                        listener.apply_Text("Welcome "+username);
+                        listener.apply_Text(username);
                     }
                 });
 

@@ -72,11 +72,19 @@ public class Home_Activity extends AppCompatActivity implements Dialog_Username.
         /////////////////////////////////////////shared prefrences
         textView_player = findViewById(R.id.textView_Player);
         SharedPreferences pref = getSharedPreferences("prefs", MODE_PRIVATE);
-        boolean first_start = pref.getBoolean("first", true);
+        boolean first_start = pref.getBoolean("first10", true);
         if (first_start)
             OpenDialog();
         //////////////////////////////////////// eventbus
         EventBus.getDefault().register(this);
+        ////////////////////////////////////////Gson
+        app = (ApplicationMy) getApplication();
+        data = app.getData();
+       // data.setUsername("test");
+        //app.save();
+        textView_player.setText("Welcome "+data.getUsername());
+
+        //////////////////////////////////////////////
         ////////////////////////////////////////
         btn_camera.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -194,7 +202,7 @@ public class Home_Activity extends AppCompatActivity implements Dialog_Username.
     public void OpenDialog() {
         SharedPreferences preferences = getSharedPreferences("prefs", MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putBoolean("first", false);
+        editor.putBoolean("first10", false);
         editor.apply();
         Dialog_Username dialog_username = new Dialog_Username();
         dialog_username.show(getSupportFragmentManager(), "Username");
@@ -202,8 +210,11 @@ public class Home_Activity extends AppCompatActivity implements Dialog_Username.
     }
 
     @Override
-    public void apply_Text(String username) {
-        textView_player.setText(username);
+    public void apply_Text(String username)
+    {
+        textView_player.setText("Welcome "+username);
+        data.setUsername(username);
+        app.save();
     }
 
     @Subscribe
@@ -211,6 +222,8 @@ public class Home_Activity extends AppCompatActivity implements Dialog_Username.
         //you can do whatever you want releted with UI
         //Toast.makeText(this, syncStatusMessage.getMessage(), Toast.LENGTH_SHORT).show();
         textView_player.setText("Welcome "+event.getUsername());
+        data.setUsername(event.getUsername());
+        app.save();
 
     }
 }
