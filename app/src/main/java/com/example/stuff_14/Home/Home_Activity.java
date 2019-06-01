@@ -18,7 +18,7 @@ import java.util.Calendar;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-public class Home_Activity extends AppCompatActivity implements Dialog_Username.Dialog_Username_Listener{
+public class Home_Activity extends AppCompatActivity implements Dialog_Username.Dialog_Username_Listener {
     private static final String TAG = "MainAcitivty";
     private static final long START_TIME_COM = 24 * 60 * 60 * 1000;
     TextView com;
@@ -69,11 +69,12 @@ public class Home_Activity extends AppCompatActivity implements Dialog_Username.
         System.out.println("jutri " + tomorrow);
         System.out.println("razlika " + razlika);
         /////////////////////////////////////////
+        textView_player = findViewById(R.id.textView_Player);
         SharedPreferences pref = getSharedPreferences("prefs", MODE_PRIVATE);
         boolean first_start = pref.getBoolean("first", true);
         if (first_start)
             OpenDialog();
-        //////////////////////////////////////////////
+        ////////////////////////////////////////77
         btn_camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -200,9 +201,6 @@ public class Home_Activity extends AppCompatActivity implements Dialog_Username.
     @Override
     public void apply_Text(String username) {
         textView_player.setText(username);
-        data.setUsername("test");
-        app.save();
-
     }
 
 

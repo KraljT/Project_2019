@@ -6,9 +6,9 @@
     <string name="google_maps_api_key">AIzaSyBQA4IS2-BEWuZmmhD_4Jclk_VPOBxl0VA</string>
     <string name="already_registered_login_here">Already registered? login here</string>
     <string-array name="num">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
+        <item>One</item>
+        <item>Two</item>
+        <item>Three</item>
+        <item>Four</item>
     </string-array>
 </resources>
