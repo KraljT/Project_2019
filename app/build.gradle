@@ -44,5 +44,7 @@ dependencies {
     //google maps
     implementation 'com.google.android.gms:play-services-maps:16.1.0'
     implementation 'com.google.android.gms:play-services-location:16.0.0'
+    //eventbus
+    implementation 'org.greenrobot:eventbus:3.1.1'
 }
 apply plugin: 'com.google.gms.google-services'

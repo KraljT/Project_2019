@@ -14,6 +14,8 @@ import com.example.stuff_14.Register_Activity;
 import com.example.stuff_14.R;
 import com.google.firebase.auth.FirebaseAuth;
 
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
@@ -203,5 +205,11 @@ public class Home_Activity extends AppCompatActivity implements Dialog_Username.
         textView_player.setText(username);
     }
 
+    @Subscribe
+    public void onEvent(Change_Username event) {
+        //you can do whatever you want releted with UI
+        //Toast.makeText(this, syncStatusMessage.getMessage(), Toast.LENGTH_SHORT).show();
+        textView_player.setText(event.getUsername());
 
+    }
 }
