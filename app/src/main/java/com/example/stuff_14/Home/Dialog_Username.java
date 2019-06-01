@@ -1,4 +1,4 @@
-package com.example.stuff_14;
+package com.example.stuff_14.Home;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.example.stuff_14.R;
 
 import static android.content.Context.MODE_PRIVATE;
 

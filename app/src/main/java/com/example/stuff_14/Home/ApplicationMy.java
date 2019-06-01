@@ -1,7 +1,6 @@
-package com.example.stuff_14;
+package com.example.stuff_14.Home;
 
 import android.app.Application;
-import android.os.Bundle;
 import android.util.Log;
 
 import com.google.gson.Gson;

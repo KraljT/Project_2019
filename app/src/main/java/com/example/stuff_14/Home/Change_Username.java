@@ -1,4 +1,4 @@
-package com.example.stuff_14;
+package com.example.stuff_14.Home;
 
 import java.util.UUID;
 
