@@ -23,8 +23,9 @@ public class Settings_Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        text = findViewById(R.id.editText_change_username);
         setContentView(R.layout.activity_settings);
+        conf = findViewById(R.id.btn_confirm);
+        text= findViewById(R.id.editText_change_username);
         btn_logout = findViewById(R.id.btn_logout);
         mAuth = FirebaseAuth.getInstance();
         if (mAuth.getCurrentUser() == null) {
@@ -39,8 +40,7 @@ public class Settings_Activity extends AppCompatActivity {
                 startActivity(new Intent(Settings_Activity.this,MainActivity.class));
             }
         });
-        conf = findViewById(R.id.btn_confirm);
-        text= findViewById(R.id.editText_change_username);
+
         conf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

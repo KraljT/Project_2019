@@ -14,6 +14,7 @@ import com.example.stuff_14.Register_Activity;
 import com.example.stuff_14.R;
 import com.google.firebase.auth.FirebaseAuth;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.Calendar;
@@ -36,7 +37,6 @@ public class Home_Activity extends AppCompatActivity implements Dialog_Username.
     ///////////////////////////////////////
     private Button btn_ach;
     private Button btn_col;
-    private Button btn_home;
     private Button btn_gps;
     private Button btn_shop;
     private Button btn_set;
@@ -58,7 +58,6 @@ public class Home_Activity extends AppCompatActivity implements Dialog_Username.
         epic = findViewById(R.id.textView_epic);
         btn_ach = findViewById(R.id.btn_achievement);
         btn_col = findViewById(R.id.btn_collection);
-        btn_home = findViewById(R.id.btn_home);
         btn_gps = findViewById(R.id.btn_gps);
         btn_shop = findViewById(R.id.btn_shop);
         btn_set = findViewById(R.id.btn_settings);
@@ -70,13 +69,15 @@ public class Home_Activity extends AppCompatActivity implements Dialog_Username.
         System.out.println("trenutno " + curr_time_mill);
         System.out.println("jutri " + tomorrow);
         System.out.println("razlika " + razlika);
-        /////////////////////////////////////////
+        /////////////////////////////////////////shared prefrences
         textView_player = findViewById(R.id.textView_Player);
         SharedPreferences pref = getSharedPreferences("prefs", MODE_PRIVATE);
         boolean first_start = pref.getBoolean("first", true);
         if (first_start)
             OpenDialog();
-        ////////////////////////////////////////77
+        //////////////////////////////////////// eventbus
+        EventBus.getDefault().register(this);
+        ////////////////////////////////////////
         btn_camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -209,7 +210,7 @@ public class Home_Activity extends AppCompatActivity implements Dialog_Username.
     public void onEvent(Change_Username event) {
         //you can do whatever you want releted with UI
         //Toast.makeText(this, syncStatusMessage.getMessage(), Toast.LENGTH_SHORT).show();
-        textView_player.setText(event.getUsername());
+        textView_player.setText("Welcome "+event.getUsername());
 
     }
 }
