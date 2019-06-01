@@ -3,6 +3,8 @@ package com.example.stuff_14.Home;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,11 +15,17 @@ import android.widget.Toast;
 
 import com.example.stuff_14.R;
 
+import java.util.ArrayList;
+
 public class Collection_Activity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private Button btn_ach;
     private Button btn_home;
     private Button btn_gps;
     private Button btn_shop;
+    ////////////////////////////////////// recycleView
+    private static final String TAG = "Shop_Activity";
+    private ArrayList<String> mNames = new ArrayList<>();
+    private ArrayList<String> mImageUrls = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +33,9 @@ public class Collection_Activity extends AppCompatActivity implements AdapterVie
         btn_home = findViewById(R.id.btn_home);
         btn_gps = findViewById(R.id.btn_gps);
         btn_shop = findViewById(R.id.btn_shop);
+        ////////////////////////////////////////
+        Log.d(TAG,"oncreate: started");
+        initImageBitmaps();
         //////////////////////////////////////////////////
         Spinner spinner =findViewById(R.id.spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.num,android.R.layout.simple_spinner_item);
@@ -73,5 +84,36 @@ public class Collection_Activity extends AppCompatActivity implements AdapterVie
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+    private void initImageBitmaps()
+    {
+        Log.d(TAG,"initImageBitmaps: prepering bitmaps");
+        mImageUrls.add("https://www.dropbox.com/s/yflo8dzj8es56mh/medalija.png?dl=1");
+        mNames.add("Animal lover");
+        mImageUrls.add("https://www.dropbox.com/s/yflo8dzj8es56mh/medalija.png?dl=1");
+        mNames.add("Simple geometry");
+        mImageUrls.add("https://www.dropbox.com/s/yflo8dzj8es56mh/medalija.png?dl=1");
+        mNames.add("Now you can\ndress yourself");
+        mImageUrls.add("https://www.dropbox.com/s/xnbwxd9pr8hmbuk/medalija_nedobljena.png?dl=1");
+        mNames.add("??????");
+        mImageUrls.add("https://www.dropbox.com/s/xnbwxd9pr8hmbuk/medalija_nedobljena.png?dl=1");
+        mNames.add("??????");
+        mImageUrls.add("https://www.dropbox.com/s/xnbwxd9pr8hmbuk/medalija_nedobljena.png?dl=1");
+        mNames.add("??????");
+        mImageUrls.add("https://www.dropbox.com/s/xnbwxd9pr8hmbuk/medalija_nedobljena.png?dl=1");
+        mNames.add("??????");
+        mImageUrls.add("https://www.dropbox.com/s/yflo8dzj8es56mh/medalija.png?dl=1");
+        mNames.add("LOVE");
+
+
+        initRecyclerView();
+    }
+    private void initRecyclerView()
+    {
+        Log.d(TAG,"initRecyclerView: started");
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        RecycleViewAdapter adapter = new RecycleViewAdapter(mNames,mImageUrls,this);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 }
