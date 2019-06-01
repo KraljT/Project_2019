@@ -33,15 +33,17 @@ public class Collection_Activity extends AppCompatActivity implements AdapterVie
         btn_home = findViewById(R.id.btn_home);
         btn_gps = findViewById(R.id.btn_gps);
         btn_shop = findViewById(R.id.btn_shop);
+        btn_ach = findViewById(R.id.btn_achievement);
         ////////////////////////////////////////
         Log.d(TAG,"oncreate: started");
         initImageBitmaps();
         //////////////////////////////////////////////////
-        Spinner spinner =findViewById(R.id.spinner);
+       Spinner spinner = findViewById(R.id.spinner1);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.num,android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
+
         ///////////////////////////////////////////////////
         btn_ach.setOnClickListener(new View.OnClickListener() {
             @Override

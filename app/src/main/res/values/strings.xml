@@ -3,7 +3,9 @@
     <string name="common">Next common in:</string>
     <string name="rare">Next rare in:</string>
     <string name="epic">Next epic in:</string>
-    <string name="google_maps_api_key">AIzaSyBQA4IS2-BEWuZmmhD_4Jclk_VPOBxl0VA</string>
+    <string name="google_maps_api_key">AIzaSyCEFKoQL9jkLIX93k_XXO_y4mNTQoYM1iY</string>
+
+
     <string name="already_registered_login_here">Already registered? login here</string>
     <string-array name="num">
         <item>One</item>
