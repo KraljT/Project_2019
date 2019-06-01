@@ -67,6 +67,55 @@ public class Home_Activity extends AppCompatActivity{
         System.out.println("trenutno " + curr_time_mill);
         System.out.println("jutri " + tomorrow);
         System.out.println("razlika " + razlika);
+        /////////////////////////////////////////
+        btn_camera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Home_Activity.this,Camera_Activity.class);
+                startActivity(intent);
+            }
+        });
+        /////////////////////////////////////////////////
+        btn_ach.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Home_Activity.this, Achievement_Activity.class);
+                startActivity(intent);
+            }
+        });
+        //////////////////////////////////////////////
+        btn_col.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Home_Activity.this, Collection_Activity.class);
+                startActivity(intent);
+            }
+        });
+        //////////////////////////////////////////////
+        btn_gps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Home_Activity.this, GPS_Activity.class);
+                startActivity(intent);
+            }
+        });
+        //////////////////////////////////////////////
+        btn_shop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Home_Activity.this, Shop_Activity.class);
+                startActivity(intent);
+            }
+        });
+        //////////////////////////////////////////////
+        btn_set.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Home_Activity.this, Settings_Activity.class);
+                startActivity(intent);
+            }
+        });
+        /////////////////////////////////////////
         timer_com = new CountDownTimer(razlika, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
