@@ -1,6 +1,7 @@
 package com.example.stuff_14.Home;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,7 +18,7 @@ import java.util.Calendar;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-public class Home_Activity extends AppCompatActivity{
+public class Home_Activity extends AppCompatActivity implements Dialog_Username.Dialog_Username_Listener{
     private static final String TAG = "MainAcitivty";
     private static final long START_TIME_COM = 24 * 60 * 60 * 1000;
     TextView com;
@@ -68,6 +69,11 @@ public class Home_Activity extends AppCompatActivity{
         System.out.println("jutri " + tomorrow);
         System.out.println("razlika " + razlika);
         /////////////////////////////////////////
+        SharedPreferences pref = getSharedPreferences("prefs", MODE_PRIVATE);
+        boolean first_start = pref.getBoolean("first", true);
+        if (first_start)
+            OpenDialog();
+        //////////////////////////////////////////////
         btn_camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -179,6 +185,23 @@ public class Home_Activity extends AppCompatActivity{
         timer_epic.start();
 
 
+
+    }
+    public void OpenDialog() {
+        SharedPreferences preferences = getSharedPreferences("prefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean("first", false);
+        editor.apply();
+        Dialog_Username dialog_username = new Dialog_Username();
+        dialog_username.show(getSupportFragmentManager(), "Username");
+
+    }
+
+    @Override
+    public void apply_Text(String username) {
+        textView_player.setText(username);
+        data.setUsername("test");
+        app.save();
 
     }
 

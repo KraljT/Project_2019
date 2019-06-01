@@ -55,5 +55,4 @@ public class Shop_Activity extends AppCompatActivity {
             }
         });
     }
-    }
 }
