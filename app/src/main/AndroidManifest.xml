@@ -26,7 +26,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Home.Settings_Activity"></activity>
+        <activity android:name=".Home.Camera_Activity"></activity>
+        <activity android:name=".Home.Achievement_Activity" />
+        <activity android:name=".Home.Collection_Activity" />
+        <activity android:name=".Home.Shop_Activity" />
+        <activity android:name=".Home.GPS_Activity" />
+        <activity android:name=".Home.Settings_Activity" />
         <activity android:name=".Home.Home_Activity" />
         <activity android:name=".Register_Activity" />
         <activity
@@ -38,8 +43,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"></activity>
-       <receiver
+        <activity android:name=".MainActivity" />
+
+        <receiver
             android:name=".Home.BootReceiver"
             android:enabled="true"
             android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
