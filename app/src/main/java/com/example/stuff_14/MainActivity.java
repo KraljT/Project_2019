@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
             protected void onCreate(Bundle savedInstanceState) {
                 super.onCreate(savedInstanceState);
                 setContentView(R.layout.activity_register);
-                if(OpenCVLoader.initDebug())
                 editTextEmail = (EditText) findViewById(R.id.editTextEmail);
                 editTextPassword = (EditText) findViewById(R.id.editTextPassword);
                 progressBar = (ProgressBar) findViewById(R.id.progressbar);
