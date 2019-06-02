@@ -19,7 +19,9 @@ package com.example.stuff_14;
         import com.google.firebase.auth.AuthResult;
         import com.google.firebase.auth.FirebaseAuth;
 
-        public class MainActivity extends AppCompatActivity implements  View.OnClickListener {
+    import org.opencv.android.OpenCVLoader;
+
+public class MainActivity extends AppCompatActivity implements  View.OnClickListener {
             ProgressBar progressBar;
             EditText editTextEmail, editTextPassword;
             Button button;
@@ -31,6 +33,7 @@ package com.example.stuff_14;
             protected void onCreate(Bundle savedInstanceState) {
                 super.onCreate(savedInstanceState);
                 setContentView(R.layout.activity_register);
+                if(OpenCVLoader.initDebug())
                 editTextEmail = (EditText) findViewById(R.id.editTextEmail);
                 editTextPassword = (EditText) findViewById(R.id.editTextPassword);
                 progressBar = (ProgressBar) findViewById(R.id.progressbar);
