@@ -1,124 +1,182 @@
 package com.example.stuff_14.Home;
 
+
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Matrix;
+import android.graphics.Paint;
+import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Surface;
-import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
 
-import org.opencv.android.BaseLoaderCallback;
-import org.opencv.android.CameraBridgeViewBase;
-import org.opencv.android.JavaCameraView;
-import org.opencv.android.OpenCVLoader;
-import org.opencv.android.Utils;
-import org.opencv.core.Core;
-import org.opencv.core.CvType;
-import org.opencv.core.Mat;
-import org.opencv.imgproc.Imgproc;
+import java.io.File;
+
 
 import com.example.stuff_14.R;
 
-public class Camera_Activity extends AppCompatActivity implements CameraBridgeViewBase.CvCameraViewListener2 {
-    ImageView camera;
-    ImageView camera2;
-    CameraBridgeViewBase cameraBridgeViewBase;
-    Mat mat1,mat2,mat3;
-    BaseLoaderCallback baseLoaderCallback;
+
+public class Camera_Activity extends AppCompatActivity {
+    Button camera;
+    ImageView original;
+    ImageView pixel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
-        camera2 = findViewById(R.id.imageView_camera2);
-        camera = findViewById(R.id.imageView_camera);
-        cameraBridgeViewBase =(JavaCameraView) findViewById(R.id.javaCameraView);
-        cameraBridgeViewBase.setVisibility(SurfaceView.VISIBLE);
-        cameraBridgeViewBase.setCvCameraViewListener(this);
-        baseLoaderCallback = new BaseLoaderCallback(this) {
+        camera = findViewById(R.id.btn_camera);
+        original = findViewById(R.id.imageView_original);
+        pixel = findViewById(R.id.imageView_pixel);
+        camera.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onManagerConnected(int status) {
-                super.onManagerConnected(status);
-                switch (status)
-                {
-                    case BaseLoaderCallback.SUCCESS:
-                        cameraBridgeViewBase.enableView();
-                        break;
-                        default:
-                            super.onManagerConnected(status);
-                            break;
-                }
+            public void onClick(View v) {
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                //intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile());
+                startActivityForResult(intent, 1);
+
             }
-        };
+        });
+
 
     }
-/*
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Bundle extras = data.getExtras();
+    protected  void onActivityResult(int requestCode, int resultCode,Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Bitmap bitmap_camera = (Bitmap) extras.get("data");
-        camera.setImageBitmap(bitmap_camera);
+        Bitmap original_bitmap = (Bitmap) data.getExtras().get("data");
+        original.setImageBitmap(original_bitmap);
+        int width= original_bitmap.getWidth();
+        int heght = original_bitmap.getHeight();
+        //Bitmap pixels = Bitmap.createScaledBitmap(original_bitmap, 10, 10, false);
+        Bitmap pixels = Bitmap.createScaledBitmap(original_bitmap,(int)(original_bitmap.getWidth()*.20),(int)(original_bitmap.getHeight()*.20),false);
+        Bitmap pixels2 = Bitmap.createScaledBitmap(pixels,width,heght,false);
+       //Bitmap pixels;
+      //pixels = BITMAP_RESIZER(original_bitmap,10,10);
+       // pixels = filter(original_bitmap);
+        pixel.setImageBitmap(pixels2);
 
+    }
+   /* public static Bitmap resizeBitmap(Bitmap source, int maxLength) {
+        try {
+            if (source.getHeight() >= source.getWidth()) {
+                int targetHeight = maxLength;
+                if (source.getHeight() <= targetHeight) { // if image already smaller than the required height
+                    return source;
+                }
+
+                double aspectRatio = (double) source.getWidth() / (double) source.getHeight();
+                int targetWidth = (int) (targetHeight * aspectRatio);
+
+                Bitmap result = Bitmap.createScaledBitmap(source, targetWidth, targetHeight, false);
+                if (result != source) {
+                }
+                return result;
+            } else {
+                int targetWidth = maxLength;
+
+                if (source.getWidth() <= targetWidth) { // if image already smaller than the required height
+                    return source;
+                }
+
+                double aspectRatio = ((double) source.getHeight()) / ((double) source.getWidth());
+                int targetHeight = (int) (targetWidth * aspectRatio);
+
+                Bitmap result = Bitmap.createScaledBitmap(source, targetWidth, targetHeight, false);
+                if (result != source) {
+                }
+                return result;
+
+            }
+        } catch (Exception e) {
+            return source;
+        }
     }
  */
-    @Override
-    public void onCameraViewStarted(int width, int height) {
-        mat1 = new Mat(width,height,CvType.CV_8UC4);
-        mat2 = new Mat(width,height,CvType.CV_8UC4);
-        mat3 = new Mat(width,height,CvType.CV_8UC4);
-    }
+   /*public Bitmap getResizedBitmap(Bitmap bm, int newWidth, int newHeight) {
+       int width = bm.getWidth();
+       int height = bm.getHeight();
+       float scaleWidth = ((float) newWidth) / width;
+       float scaleHeight = ((float) newHeight) / height;
+       // CREATE A MATRIX FOR THE MANIPULATION
+       Matrix matrix = new Matrix();
+       // RESIZE THE BIT MAP
+       matrix.postScale(scaleWidth, scaleHeight);
 
-    @Override
-    public void onCameraViewStopped() {
-        mat1.release();
-        mat2.release();
-        mat3.release();
+       // "RECREATE" THE NEW BITMAP
+       Bitmap resizedBitmap = Bitmap.createBitmap(
+               bm, 0, 0, width, height, matrix, false);
+       bm.recycle();
+       return resizedBitmap;
+   }*/
+  /* public Bitmap BITMAP_RESIZER(Bitmap bitmap,int newWidth,int newHeight) {
+       Bitmap scaledBitmap = Bitmap.createBitmap(newWidth, newHeight, Bitmap.Config.ARGB_8888);
 
-    }
+       float ratioX = newWidth / (float) bitmap.getWidth();
+       float ratioY = newHeight / (float) bitmap.getHeight();
+       float middleX = newWidth / 2.0f;
+       float middleY = newHeight / 2.0f;
 
-    @Override
-    public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame) {
-        mat1 = inputFrame.rgba();
-        return mat1;
-    }
-    @Override
-    protected void onPause()
-    {
-        super.onPause();
-        if(cameraBridgeViewBase != null) {
-            cameraBridgeViewBase.disableView();
+       Matrix scaleMatrix = new Matrix();
+       scaleMatrix.setScale(ratioX, ratioY, middleX, middleY);
+
+       Canvas canvas = new Canvas(scaledBitmap);
+       canvas.setMatrix(scaleMatrix);
+       canvas.drawBitmap(bitmap, middleX - bitmap.getWidth() / 2, middleY - bitmap.getHeight() / 2, new Paint(Paint.FILTER_BITMAP_FLAG));
+
+       return scaledBitmap;
+
+   }
+   */
+  /*  public Bitmap filter(Bitmap bmIn) {
+        Bitmap bmOut = Bitmap.createBitmap(bmIn.getWidth(), bmIn.getHeight(), bmIn.getConfig());
+        int pixelationAmount = 10; //you can change it!!
+        int width = bmIn.getWidth();
+        int height = bmIn.getHeight();
+        int avR, avB, avG; // store average of rgb
+        int pixel;
+        int n;
+
+        for (int x = 0; x < width; x += pixelationAmount) { // do the whole image
+            for (int y = 0; y < height; y += pixelationAmount) {
+                avR = 0;
+                avG = 0;
+                avB = 0;
+
+
+                int bx = x + pixelationAmount;
+                int by = y + pixelationAmount;
+                if (by >= height) by = height;
+                if (bx >= width) bx = width;
+                for (int xx = x; xx < bx; xx++) {// YOU WILL WANT TO PUYT SOME OUT OF                                      BOUNDS CHECKING HERE
+                    for (int yy = y; yy < by; yy++) { // this is scanning the colors
+
+                        pixel = bmIn.getPixel(xx, yy);
+                        avR += (int) (Color.red(pixel));
+                        avG += (int) (Color.green(pixel));
+                        avB += (int) (Color.blue(pixel));
+                    }
+                }
+                avR /= pixelationAmount ^ 2; //divide all by the amount of samples taken to get an average
+                avG /= pixelationAmount ^ 2;
+                avB /= pixelationAmount ^ 2;
+
+                for (int xx = x; xx < bx; xx++)// YOU WILL WANT TO PUYT SOME OUT OF BOUNDS CHECKING HERE
+                    for (int yy = y; yy < by; yy++) { // this is going back over the block
+                        bmOut.setPixel(xx, yy, Color.argb(255, avR, avG, avB)); //sets the block to the average color
+                    }
+
+
+            }
+
         }
+        return bmOut;
     }
-    @Override
-    protected  void onResume()
-    {
-        super.onResume();
-        if(!OpenCVLoader.initDebug())
-        {
-            Toast.makeText(getApplicationContext(),"OpenCV Error",Toast.LENGTH_SHORT).show();
-        }
-        else
-        {
-            baseLoaderCallback.onManagerConnected(BaseLoaderCallback.SUCCESS);
-        }
-
-    }
-    @Override
-    protected  void onDestroy()
-    {
-        super.onDestroy();
-        if(cameraBridgeViewBase!=null)
-        {
-            cameraBridgeViewBase.disableView();
-        }
-
-
-    }
+    */
 }
-//ask for premission !!!

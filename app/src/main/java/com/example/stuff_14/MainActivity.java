@@ -19,8 +19,6 @@ package com.example.stuff_14;
         import com.google.firebase.auth.AuthResult;
         import com.google.firebase.auth.FirebaseAuth;
 
-    import org.opencv.android.OpenCVLoader;
-
 public class MainActivity extends AppCompatActivity implements  View.OnClickListener {
             ProgressBar progressBar;
             EditText editTextEmail, editTextPassword;

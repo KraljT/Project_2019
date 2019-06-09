@@ -47,8 +47,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-location:16.0.0'
     //eventbus
     implementation 'org.greenrobot:eventbus:3.1.1'
-    //OpenCV
-    implementation 'org.jetbrains:annotations-java5:15.0'
-    implementation project(path: ':openCVLibrary310')
+    //image
+    implementation 'jp.co.cyberagent.android:gpuimage:2.0.3'
 }
 apply plugin: 'com.google.gms.google-services'
