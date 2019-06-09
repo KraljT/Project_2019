@@ -8,18 +8,28 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.io.File;
+import java.nio.ByteBuffer;
+import java.util.Arrays;
 
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.example.stuff_14.R;
 
 
@@ -27,6 +37,9 @@ public class Camera_Activity extends AppCompatActivity {
     Button camera;
     ImageView original;
     ImageView pixel;
+    ImageView dropbox;
+    Bitmap pixels;
+    Bitmap pixels2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +48,7 @@ public class Camera_Activity extends AppCompatActivity {
         camera = findViewById(R.id.btn_camera);
         original = findViewById(R.id.imageView_original);
         pixel = findViewById(R.id.imageView_pixel);
+        dropbox = findViewById(R.id.imageView_dropbox);
         camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -42,26 +56,76 @@ public class Camera_Activity extends AppCompatActivity {
                 //intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile());
                 startActivityForResult(intent, 1);
 
+
             }
         });
+        pixel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Camera_Activity.this,Collection_Activity.class);
+                i.putExtra("res",pixels2);
+                startActivity(i);
+                Toast.makeText(Camera_Activity.this, "Image send", Toast.LENGTH_SHORT).show();
+            }
+        });
+        Glide.with(this)
+                .asBitmap()
+                .load("https://www.dropbox.com/s/e9cl04w31mksw3y/IMG_20190609_195434.jpg?dl=1")
+                .into(new CustomTarget<Bitmap>(){
+                    @Override
+                    public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                        dropbox.setImageBitmap(resource);
+                    }
 
+                    @Override
+                    public void onLoadCleared(@Nullable Drawable placeholder) {
+                    }
+                });
 
     }
     @Override
     protected  void onActivityResult(int requestCode, int resultCode,Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Bitmap original_bitmap = (Bitmap) data.getExtras().get("data");
-        original.setImageBitmap(original_bitmap);
-        int width= original_bitmap.getWidth();
-        int heght = original_bitmap.getHeight();
+        Bitmap camera_bitmap = (Bitmap) data.getExtras().get("data");
+        original.setImageBitmap(camera_bitmap);
+        Bitmap dropbox_bitmap = imageView2Bitmap(dropbox);
+        int width= camera_bitmap.getWidth();
+        int heght = camera_bitmap.getHeight();
         //Bitmap pixels = Bitmap.createScaledBitmap(original_bitmap, 10, 10, false);
-        Bitmap pixels = Bitmap.createScaledBitmap(original_bitmap,(int)(original_bitmap.getWidth()*.20),(int)(original_bitmap.getHeight()*.20),false);
-        Bitmap pixels2 = Bitmap.createScaledBitmap(pixels,width,heght,false);
+        pixels = Bitmap.createScaledBitmap(camera_bitmap,(int)(camera_bitmap.getWidth()*.20),(int)(camera_bitmap.getHeight()*.20),false); //to deluje boljse
+        pixels2 = Bitmap.createScaledBitmap(pixels,width,heght,false);
+
        //Bitmap pixels;
       //pixels = BITMAP_RESIZER(original_bitmap,10,10);
-       // pixels = filter(original_bitmap);
+     //   pixels = filter(original_bitmap);
+      /*  if(equals(original_bitmap,dropbox_bitmap)) {
+            Toast.makeText(Camera_Activity.this, "Sliki sta podobni", Toast.LENGTH_SHORT).show();
+        }
+      else
+            Toast.makeText(Camera_Activity.this, "Sliki nista podobni", Toast.LENGTH_SHORT).show();
+        */
+        if(camera_bitmap.sameAs(dropbox_bitmap))
+            Toast.makeText(Camera_Activity.this, "Sliki sta podobni", Toast.LENGTH_SHORT).show();
+        else
+            Toast.makeText(Camera_Activity.this, "Sliki nista podobni", Toast.LENGTH_SHORT).show();
+
         pixel.setImageBitmap(pixels2);
 
+
+    }
+   /* public boolean equals(Bitmap bitmap1, Bitmap bitmap2) {
+        ByteBuffer buffer1 = ByteBuffer.allocate(bitmap1.getHeight() * bitmap1.getRowBytes());
+        bitmap1.copyPixelsToBuffer(buffer1);
+
+        ByteBuffer buffer2 = ByteBuffer.allocate(bitmap2.getHeight() * bitmap2.getRowBytes());
+        bitmap2.copyPixelsToBuffer(buffer2);
+
+        return Arrays.equals(buffer1.array(), buffer2.array());
+    }
+    */
+    private Bitmap imageView2Bitmap(ImageView view){
+        Bitmap bitmap = ((BitmapDrawable)view.getDrawable()).getBitmap();
+        return bitmap;
     }
    /* public static Bitmap resizeBitmap(Bitmap source, int maxLength) {
         try {
@@ -99,42 +163,8 @@ public class Camera_Activity extends AppCompatActivity {
         }
     }
  */
-   /*public Bitmap getResizedBitmap(Bitmap bm, int newWidth, int newHeight) {
-       int width = bm.getWidth();
-       int height = bm.getHeight();
-       float scaleWidth = ((float) newWidth) / width;
-       float scaleHeight = ((float) newHeight) / height;
-       // CREATE A MATRIX FOR THE MANIPULATION
-       Matrix matrix = new Matrix();
-       // RESIZE THE BIT MAP
-       matrix.postScale(scaleWidth, scaleHeight);
-
-       // "RECREATE" THE NEW BITMAP
-       Bitmap resizedBitmap = Bitmap.createBitmap(
-               bm, 0, 0, width, height, matrix, false);
-       bm.recycle();
-       return resizedBitmap;
-   }*/
-  /* public Bitmap BITMAP_RESIZER(Bitmap bitmap,int newWidth,int newHeight) {
-       Bitmap scaledBitmap = Bitmap.createBitmap(newWidth, newHeight, Bitmap.Config.ARGB_8888);
-
-       float ratioX = newWidth / (float) bitmap.getWidth();
-       float ratioY = newHeight / (float) bitmap.getHeight();
-       float middleX = newWidth / 2.0f;
-       float middleY = newHeight / 2.0f;
-
-       Matrix scaleMatrix = new Matrix();
-       scaleMatrix.setScale(ratioX, ratioY, middleX, middleY);
-
-       Canvas canvas = new Canvas(scaledBitmap);
-       canvas.setMatrix(scaleMatrix);
-       canvas.drawBitmap(bitmap, middleX - bitmap.getWidth() / 2, middleY - bitmap.getHeight() / 2, new Paint(Paint.FILTER_BITMAP_FLAG));
-
-       return scaledBitmap;
-
-   }
-   */
-  /*  public Bitmap filter(Bitmap bmIn) {
+   /*
+    public Bitmap filter(Bitmap bmIn) {
         Bitmap bmOut = Bitmap.createBitmap(bmIn.getWidth(), bmIn.getHeight(), bmIn.getConfig());
         int pixelationAmount = 10; //you can change it!!
         int width = bmIn.getWidth();
@@ -178,5 +208,5 @@ public class Camera_Activity extends AppCompatActivity {
         }
         return bmOut;
     }
-    */
+*/
 }

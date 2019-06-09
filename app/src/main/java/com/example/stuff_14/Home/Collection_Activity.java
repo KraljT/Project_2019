@@ -106,6 +106,14 @@ public class Collection_Activity extends AppCompatActivity implements AdapterVie
         mNames.add("??????");
         mImageUrls.add("https://www.dropbox.com/s/yflo8dzj8es56mh/medalija.png?dl=1");
         mNames.add("LOVE");
+        Bundle bundle = getIntent().getExtras();
+        if(bundle!=null)
+        {
+            int resid = bundle.getInt("res");
+            mImageUrls.add(Integer.toString(resid));
+            mNames.add("Your pic");
+        }
+
 
 
         initRecyclerView();
