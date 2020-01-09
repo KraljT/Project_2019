@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -214,6 +215,9 @@ public class Home_Activity extends AppCompatActivity implements Dialog_Username.
     {
         textView_player.setText("Welcome "+username);
         data.setUsername(username);
+        Algorith_v4 test = new Algorith_v4();
+        data.setUsername(test.getBits().toString());
+       // Log.d(TAG, "apply_Text: "+ test.getUsername());
         app.save();
     }
 

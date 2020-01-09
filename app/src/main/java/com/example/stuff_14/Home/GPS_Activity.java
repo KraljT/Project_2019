@@ -7,7 +7,13 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.LocaleList;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -16,16 +22,27 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.stuff_14.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.Circle;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.collection.LLRBNode;
+
 
 public class GPS_Activity extends AppCompatActivity implements OnMapReadyCallback {
     private Button btn_ach;
@@ -34,12 +51,16 @@ public class GPS_Activity extends AppCompatActivity implements OnMapReadyCallbac
     private Button btn_shop;
     ////////////////////////////////gps
     private MapView mMapView;
-    private  static  final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 9002;
-    private  static  final  int PERMISSIONS_REQUEST_ENABLE_GPS=9003;
-    private static final int ERROR_DIALOG_REQUEST=9001;
+    private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 9002;
+    private static final int PERMISSIONS_REQUEST_ENABLE_GPS = 9003;
+    private static final int ERROR_DIALOG_REQUEST = 9001;
     boolean mLocationPermissionGranted = false;
     private static final String MAPVIEW_BUNDLE_KEY = "MapViewBundleKey";
     private static final String TAG = "gps";
+    private LocationManager locationManager;
+    private LocationListener locationListener;
+    private TextView coord;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +69,53 @@ public class GPS_Activity extends AppCompatActivity implements OnMapReadyCallbac
         btn_home = findViewById(R.id.btn_home);
         btn_shop = findViewById(R.id.btn_shop);
         btn_ach = findViewById(R.id.btn_achievement);
-        ///////////////////////////////////////////////ž
+        ///////////////////////////////////////////////
+        coord = findViewById(R.id.textView_coord);
+        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        if(locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+            locationManager.requestLocationUpdates(locationManager.NETWORK_PROVIDER, 1000, 0, new LocationListener() {
+                @Override
+                public void onLocationChanged(Location location) {
+                    coord.setText("Coordinates: "+location.getLatitude()+" "+location.getLongitude());
+                    for(double i=46.3933060;i<46.3933068;i=i+0.0000001)
+                    {
+                        for(double j=15.5610545;j<15.5610551;j=j+0.0000001)
+                        {
+                            if(location.getLatitude()==i && location.getLongitude()==j)
+                            {
+                                Toast.makeText(GPS_Activity.this, "prispeli ste do destinacije !", Toast.LENGTH_SHORT).show();
+                            }
+
+                        }
+                    }
+                }
+
+                @Override
+                public void onStatusChanged(String provider, int status, Bundle extras) {
+
+                }
+
+                @Override
+                public void onProviderEnabled(String provider) {
+
+                }
+
+                @Override
+                public void onProviderDisabled(String provider) {
+
+                }
+            });
+        }
         //////////////////////////////////////////////////
         checkMapServices();
 
@@ -96,6 +163,8 @@ public class GPS_Activity extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
     }
+
+
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -129,11 +198,18 @@ public class GPS_Activity extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     public void onMapReady(GoogleMap map) {
-        map.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
         map.setMyLocationEnabled(true);
+        map.addMarker((new MarkerOptions().position(new LatLng(46.3933068, 15.5610551)).title("Blok")));
+        map.addCircle(
+                new CircleOptions()
+                .center(new LatLng(46.3933068,15.5610551))
+                .radius(2)
+                .fillColor(Color.argb(30,255,138,80))
+                .strokeColor(Color.argb(30,255,87,34))
+        );
     }
 
     @Override
@@ -268,11 +344,9 @@ public class GPS_Activity extends AppCompatActivity implements OnMapReadyCallbac
         super.onResume();
         if (checkMapServices()) {
             if (mLocationPermissionGranted) {
-
             }
             else
                 getLocationPermission();
         }
     } */
 }
-
