@@ -10,6 +10,15 @@ public class Algorith_v4 {
 
     public StringBuilder bits = new StringBuilder();
     public String username;
+    public ArrayList<Integer> slika = new ArrayList<>();
+
+    public ArrayList<Integer> getSlika() {
+        return slika;
+    }
+
+    public void setSlika(ArrayList<Integer> slika) {
+        this.slika = slika;
+    }
 
     public StringBuilder getBits() {
         return bits;
@@ -375,5 +384,10 @@ public class Algorith_v4 {
     public String ToString()
     {
          return "Koncni niz = " + bits + "\n";
+
     }
+    public void StartAlgo() {
+        Pravila(bits,slika);
+    }
+
 }

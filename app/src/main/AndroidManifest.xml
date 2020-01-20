@@ -37,7 +37,8 @@
         <activity android:name=".Home.GPS_Activity" />
         <activity android:name=".Home.Settings_Activity" />
         <activity android:name=".Home.Home_Activity" />
-        <activity android:name=".Register_Activity" />
+        <activity android:name=".Register_Activity"
+            android:theme="@style/AppTheme2"/>
         <activity
             android:name=".Splash_Screen_Activity"
             android:theme="@style/AppTheme2">
@@ -47,7 +48,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity"
+            android:theme="@style/AppTheme2"/>
 
         <receiver
             android:name=".Home.BootReceiver"

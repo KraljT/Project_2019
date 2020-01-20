@@ -22,6 +22,7 @@ public class Achievement_Activity extends AppCompatActivity {
     private static final String TAG = "Achievemnet_Activity";
     private ArrayList<String> mNames = new ArrayList<>();
     private ArrayList<String> mImageUrls = new ArrayList<>();
+    private ArrayList<String> mPrice = new ArrayList<>();
 
 
     @Override
@@ -74,20 +75,28 @@ public class Achievement_Activity extends AppCompatActivity {
         Log.d(TAG,"initImageBitmaps: prepering bitmaps");
         mImageUrls.add("https://www.dropbox.com/s/yflo8dzj8es56mh/medalija.png?dl=1");
         mNames.add("Animal lover");
+        mPrice.add("");
         mImageUrls.add("https://www.dropbox.com/s/yflo8dzj8es56mh/medalija.png?dl=1");
         mNames.add("Simple geometry");
+        mPrice.add("");
         mImageUrls.add("https://www.dropbox.com/s/yflo8dzj8es56mh/medalija.png?dl=1");
         mNames.add("Now you can\ndress yourself");
+        mPrice.add("");
         mImageUrls.add("https://www.dropbox.com/s/xnbwxd9pr8hmbuk/medalija_nedobljena.png?dl=1");
         mNames.add("??????");
+        mPrice.add("");
         mImageUrls.add("https://www.dropbox.com/s/xnbwxd9pr8hmbuk/medalija_nedobljena.png?dl=1");
         mNames.add("??????");
+        mPrice.add("");
         mImageUrls.add("https://www.dropbox.com/s/xnbwxd9pr8hmbuk/medalija_nedobljena.png?dl=1");
         mNames.add("??????");
+        mPrice.add("");
         mImageUrls.add("https://www.dropbox.com/s/xnbwxd9pr8hmbuk/medalija_nedobljena.png?dl=1");
         mNames.add("??????");
+        mPrice.add("");
         mImageUrls.add("https://www.dropbox.com/s/yflo8dzj8es56mh/medalija.png?dl=1");
         mNames.add("LOVE");
+        mPrice.add("");
 
 
         initRecyclerView();
@@ -96,7 +105,7 @@ public class Achievement_Activity extends AppCompatActivity {
     {
         Log.d(TAG,"initRecyclerView: started");
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        RecycleViewAdapter adapter = new RecycleViewAdapter(mNames,mImageUrls,this);
+        RecycleViewAdapter adapter = new RecycleViewAdapter(mNames,mImageUrls,mPrice,this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }

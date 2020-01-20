@@ -22,6 +22,7 @@ public class Shop_Activity extends AppCompatActivity {
     private static final String TAG = "Shop_Activity";
     private ArrayList<String> mNames = new ArrayList<>();
     private ArrayList<String> mImageUrls = new ArrayList<>();
+    private ArrayList<String> mPrice = new ArrayList<>();
     ////////////////////////////////////////////////
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,22 +71,30 @@ public class Shop_Activity extends AppCompatActivity {
     private void initImageBitmaps()
     {
         Log.d(TAG,"initImageBitmaps: prepering bitmaps");
-        mImageUrls.add("https://www.dropbox.com/s/yflo8dzj8es56mh/medalija.png?dl=1");
-        mNames.add("Animal lover");
-        mImageUrls.add("https://www.dropbox.com/s/yflo8dzj8es56mh/medalija.png?dl=1");
-        mNames.add("Simple geometry");
-        mImageUrls.add("https://www.dropbox.com/s/yflo8dzj8es56mh/medalija.png?dl=1");
-        mNames.add("Now you can\ndress yourself");
-        mImageUrls.add("https://www.dropbox.com/s/xnbwxd9pr8hmbuk/medalija_nedobljena.png?dl=1");
-        mNames.add("??????");
-        mImageUrls.add("https://www.dropbox.com/s/xnbwxd9pr8hmbuk/medalija_nedobljena.png?dl=1");
-        mNames.add("??????");
-        mImageUrls.add("https://www.dropbox.com/s/xnbwxd9pr8hmbuk/medalija_nedobljena.png?dl=1");
-        mNames.add("??????");
-        mImageUrls.add("https://www.dropbox.com/s/xnbwxd9pr8hmbuk/medalija_nedobljena.png?dl=1");
-        mNames.add("??????");
-        mImageUrls.add("https://www.dropbox.com/s/yflo8dzj8es56mh/medalija.png?dl=1");
-        mNames.add("LOVE");
+        mImageUrls.add("https://www.dropbox.com/s/nu2uqawuj5blobg/common.png?dl=1");
+        mNames.add("Commmon card pack");
+        mPrice.add("25 CP");
+        mImageUrls.add("https://www.dropbox.com/s/3z443pepca902py/rare.png?dl=1");
+        mNames.add("Rare card pack");
+        mPrice.add("50 CP");
+        mImageUrls.add("https://www.dropbox.com/s/ra6do8ar6v0qscj/epic.png?dl=1");
+        mNames.add("Epic card pack");
+        mPrice.add("100 CP");
+        mImageUrls.add("https://www.dropbox.com/s/n39zjgx8v7klsbp/legendary.png?dl=1");
+        mNames.add("Legendary card pack");
+        mPrice.add("250 CP");
+        mImageUrls.add("https://www.dropbox.com/s/i3ypxbyt3ph9z6l/unique.png?dl=1");
+        mNames.add("Unique card pack");
+        mPrice.add("500 CP");
+        mImageUrls.add("https://www.dropbox.com/s/dh16epb0d5a03sv/power_up_common.png?dl=1");
+        mNames.add("Reduce common time");
+        mPrice.add("15 CP");
+        mImageUrls.add("https://www.dropbox.com/s/2jjuzfmpq02j99s/power_up_rare.png?dl=1");
+        mNames.add("Reduce rare time");
+        mPrice.add("35 CP");
+        mImageUrls.add("https://www.dropbox.com/s/9ogx06r3zf3q3s0/power_up_epic.png?dl=1");
+        mNames.add("Reduce epic time");
+        mPrice.add("50 CP");
 
 
         initRecyclerView();
@@ -94,7 +103,7 @@ public class Shop_Activity extends AppCompatActivity {
     {
         Log.d(TAG,"initRecyclerView: started");
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        RecycleViewAdapter adapter = new RecycleViewAdapter(mNames,mImageUrls,this);
+        RecycleViewAdapter adapter = new RecycleViewAdapter(mNames,mImageUrls,mPrice,this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }

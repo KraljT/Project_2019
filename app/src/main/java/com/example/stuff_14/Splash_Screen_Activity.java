@@ -9,7 +9,7 @@ package com.example.stuff_14;
         import java.util.TimerTask;
 
 public class Splash_Screen_Activity extends AppCompatActivity {
-    private static int SPLASH_SCREEN = 2000;
+    private static int SPLASH_SCREEN = 18000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

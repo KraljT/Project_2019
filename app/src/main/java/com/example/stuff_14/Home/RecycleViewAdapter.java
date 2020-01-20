@@ -22,11 +22,13 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     private static final String TAG = "RecycleViewAdapter";
     private ArrayList<String> mImageNames = new ArrayList<>();
     private ArrayList<String> mImages = new ArrayList<>();
+    private ArrayList<String> mPrice = new ArrayList<>();
     private Context context;
 
-    public RecycleViewAdapter(ArrayList<String> mImageNames, ArrayList<String> mImages, Context context) {
+    public RecycleViewAdapter(ArrayList<String> mImageNames, ArrayList<String> mImages, ArrayList<String> mPrice, Context context) {
         this.mImageNames = mImageNames;
         this.mImages = mImages;
+        this.mPrice = mPrice;
         this.context = context;
     }
 
@@ -46,6 +48,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                 .load(mImages.get(i))
                 .into(viewHolder.image);
         viewHolder.text.setText(mImageNames.get(i));
+        viewHolder.price_text.setText(mPrice.get(i));
         viewHolder.parent_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,11 +68,13 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
 
         ImageView image;
         TextView text;
+        TextView price_text;
         RelativeLayout parent_layout;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.imageView_listitem);
             text = itemView.findViewById(R.id.textView_listitem);
+            price_text = itemView.findViewById(R.id.textView_price);
             parent_layout = itemView.findViewById(R.id.parent);
         }
     }

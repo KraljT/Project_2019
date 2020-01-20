@@ -26,6 +26,7 @@ public class Collection_Activity extends AppCompatActivity implements AdapterVie
     private static final String TAG = "Shop_Activity";
     private ArrayList<String> mNames = new ArrayList<>();
     private ArrayList<String> mImageUrls = new ArrayList<>();
+    private ArrayList<String> mPrice = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,12 +39,6 @@ public class Collection_Activity extends AppCompatActivity implements AdapterVie
         Log.d(TAG,"oncreate: started");
         initImageBitmaps();
         //////////////////////////////////////////////////
-       Spinner spinner = findViewById(R.id.spinner1);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.num,android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(this);
-
         ///////////////////////////////////////////////////
         btn_ach.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,22 +85,28 @@ public class Collection_Activity extends AppCompatActivity implements AdapterVie
     private void initImageBitmaps()
     {
         Log.d(TAG,"initImageBitmaps: prepering bitmaps");
+        mImageUrls.add("https://www.dropbox.com/s/wk0bzsch7kcv9mh/shop_icon.png?dl=1");
+        mNames.add("Shopping cart");
+        mPrice.add("");
+        mImageUrls.add("https://www.dropbox.com/s/30nzzo5lvmycxcq/home_icon.png?dl=1");
+        mNames.add("House");
+        mPrice.add("");
+        mImageUrls.add("https://www.dropbox.com/s/1g4cdbkvgv24w6p/achiments_icon.png?dl=1");
+        mNames.add("Trophy");
+        mPrice.add("");.
+        mImageUrls.add("https://www.dropbox.com/s/y4n6v50erizwinj/camera_icon.png?dl=1");
+        mNames.add("Camera");
+        mPrice.add("");
         mImageUrls.add("https://www.dropbox.com/s/yflo8dzj8es56mh/medalija.png?dl=1");
-        mNames.add("Animal lover");
-        mImageUrls.add("https://www.dropbox.com/s/yflo8dzj8es56mh/medalija.png?dl=1");
-        mNames.add("Simple geometry");
-        mImageUrls.add("https://www.dropbox.com/s/yflo8dzj8es56mh/medalija.png?dl=1");
-        mNames.add("Now you can\ndress yourself");
-        mImageUrls.add("https://www.dropbox.com/s/xnbwxd9pr8hmbuk/medalija_nedobljena.png?dl=1");
-        mNames.add("??????");
-        mImageUrls.add("https://www.dropbox.com/s/xnbwxd9pr8hmbuk/medalija_nedobljena.png?dl=1");
-        mNames.add("??????");
-        mImageUrls.add("https://www.dropbox.com/s/xnbwxd9pr8hmbuk/medalija_nedobljena.png?dl=1");
-        mNames.add("??????");
-        mImageUrls.add("https://www.dropbox.com/s/xnbwxd9pr8hmbuk/medalija_nedobljena.png?dl=1");
-        mNames.add("??????");
-        mImageUrls.add("https://www.dropbox.com/s/yflo8dzj8es56mh/medalija.png?dl=1");
-        mNames.add("LOVE");
+        mNames.add("Medal");
+        mPrice.add("");
+        mImageUrls.add("https://www.dropbox.com/s/4elknb4gt8uznwy/settings.png?dl=1");
+        mNames.add("Cogwheel");
+        mPrice.add("");
+        mImageUrls.add("https://www.dropbox.com/s/hq5m3onfiic8bkz/power_up.png?dl=1");
+        mNames.add("Power up");
+        mPrice.add("");
+
         Bundle bundle = getIntent().getExtras();
         if(bundle!=null)
         {
@@ -122,7 +123,7 @@ public class Collection_Activity extends AppCompatActivity implements AdapterVie
     {
         Log.d(TAG,"initRecyclerView: started");
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        RecycleViewAdapter adapter = new RecycleViewAdapter(mNames,mImageUrls,this);
+        RecycleViewAdapter adapter = new RecycleViewAdapter(mNames,mImageUrls,mPrice,this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }

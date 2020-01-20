@@ -15,6 +15,7 @@ import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Debug;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -23,13 +24,17 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
 import java.nio.ByteBuffer;
+import java.sql.SQLOutput;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 
@@ -52,6 +57,8 @@ public class Camera_Activity extends AppCompatActivity {
     private Button btn_shop;
     private Button btn_coll;
     private final int REQUEST_CODE_CAMERA=123;
+    public ArrayList<Integer> slika = new ArrayList<>();
+    TextView test2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +73,7 @@ public class Camera_Activity extends AppCompatActivity {
         btn_shop = findViewById(R.id.btn_shop3);
         btn_ach = findViewById(R.id.btn_achievement3);
         btn_coll = findViewById(R.id.btn_collection3);
+        test2 = findViewById(R.id.textView5);
         verifyPremission();
         ////////////////////////////////////////////////////
         btn_coll.setOnClickListener(new View.OnClickListener() {
@@ -159,12 +167,21 @@ public class Camera_Activity extends AppCompatActivity {
       else
             Toast.makeText(Camera_Activity.this, "Sliki nista podobni", Toast.LENGTH_SHORT).show();
 
-     /*   if(camera_bitmap.sameAs(dropbox_bitmap))
-            Toast.makeText(Camera_Activity.this, "Sliki sta podobni", Toast.LENGTH_SHORT).show();
-        else
-            Toast.makeText(Camera_Activity.this, "Sliki nista podobni", Toast.LENGTH_SHORT).show();
-*/
         pixel.setImageBitmap(pixels2);
+        //System.out.println(slika.toString());
+        for(int i = 0; i<camera_bitmap.getWidth();i++)
+        {
+            for(int j =0; i<camera_bitmap.getHeight();j++)
+            {
+                slika.add(camera_bitmap.getPixel(i,j));
+
+            }
+        }
+        Algorith_v4 test = new Algorith_v4();
+        test.setSlika(slika);
+        test.StartAlgo();
+        test2.setText(test.toString());
+
 
 
     }

@@ -4,7 +4,9 @@
     <color name="colorPrimaryDark">#CCFF90</color>
     <color name="colorAccent">#99cc60</color>
     <color name="MainActivity_background">#ffffc2</color>
-    <color name="Splah_Scren_backgound">#3A91F9</color>
+    <color name="Splah_Scren_backgound">#336DFF</color>
+    <color name="second_blue">#3A91F9</color>
+    <color name="white">#FFFFFF</color>
     <color name="colorStatusBar">#000000</color>
 
 </resources>
